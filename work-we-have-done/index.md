@@ -6,3 +6,6 @@ Square needed a concept application built that closely mimics their flagship fin
 
 Assisted with coaching internal development team with Agile methodologies and automated regression testing. SoFetch used experience from the previous two decades of building software to help implement daily standups, unit testing, and high-level integration testing. Using Ruby paired with Cucumber and RSpec libraries to create a suite of regression tests, SoFetch was able to lower the total number of bugs while simultaneously improving revenue by making sure the software did not break during valuable business interactions with customers.
 
+### LEFTA, Law Enforcement Field Training Software (2006)
+
+A year after inception of LEFTA, there was massive onboarding of Law Enforcement agencies to start using a software program to track field reports. After hiring SoFetch for a solid three-months of consulting, LEFTA was in use for the nation. This was one of our first projects. There was a mix of technologies, PHP and Perl being the two we had used on that project.
