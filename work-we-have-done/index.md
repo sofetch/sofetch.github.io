@@ -8,4 +8,4 @@ Assisted with coaching internal development team with Agile methodologies and au
 
 ### LEFTA, Law Enforcement Field Training Software (2006)
 
-A year after inception of LEFTA, there was massive onboarding of Law Enforcement agencies to start using a software program to track field reports. After hiring SoFetch for a solid three-months of consulting, LEFTA was in use for the nation. This was one of our first projects. There was a mix of technologies, PHP and Perl being the two we had used on that project.
+A year after inception of LEFTA, there was massive onboarding of Law Enforcement officers that started using the software program to track field reports. Realizing they needed expert software development, LEFTA hired SoFetch for a period of time for consulting to help improve the software architecture to handle the scale of new customers. This was one of our first projects. There was a mix of technologies, PHP and Perl, what we used in SoFetch's earlier work. Now we use Ruby extensively.
