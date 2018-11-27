@@ -1,29 +1,47 @@
 ---
 layout: default
 ---
+<!--
+
+What is the goal of the recruiters job? placing people into jobs and having them come back when they leave
+
+Why am I writing? To sell recruiters the idea of being coached
+
+What do I want to say? I want to explain I can help them build their own systems on paper to excel more than the software after their jobs
+
+What do I want to accomplish? (What is my motivation for writing?)  I want to get hired by recruiters for 12 weeks of coaching to increase their placements and lower the time they spend on most of the tasks they do now
+
+What is the next step? Will my reader know what the next step is, and who is to take that action? To have a brief phone conversation for around 15 minutes to go over a one of their current placements to show them I can be their secret weapon
+
+-->
 
 ## Technology Recruiter Coaching 
 
-#### The current problem with your job
+#### Change is here
 
-Most in your field are not willing to put in the time to fully understand all aspects of recruiting for software developers and designers. If you're reading this you're already step ahead of your competitors (and teammates) to getting more money in your pocket.
+More and more recruiting software platforms are being built every year. The industry is being eaten alive by software. 
 
-#### What you have now
+> Job boards and job aggregators are central to the recruiting ecosystem because direct applicants make up 48% of all hires.
 
-You **kinda** understand what the client is looking for. And you **kinda** have an idea of what the candidate is looking for. And you might also be able to tell from a technical stand point if the person you are considering has the chops to get the job.
+Most technology recruiters are not willing to put in the time to fully understand all aspects of recruiting for software developers and designers. 
 
-#### What you want
+If you're reading this you're already step ahead of your competitors (and teammates) to getting more money in your pocket.
 
-You want to place more people out of your current pool than normal. A higher conversion rate for you means more people place, money in your pocket, and happer clients that will refer their CTO friends to you.
+#### Recruiter Winners and Losers over the next 5 years
+
+Its natural progression. The more recruiting software that is built and made available to companies to do their own recruiting, the less recruiters will be needed. 
+
+Placing more people means a better lifestyle. Not placing enough people means having to find a new job.
 
 #### What you need right now
 
-A solid developer turned CTO turned CEO. A developer you can call on to verify what you have to make sure you're not shooting yourself in the foot when you try to talk to a developer that you'd like to place. And the same developer can talk to you from the CTO side to make sure you understand what your client is really asking for.
+A deeply technical life-line to be in your corner. All great boxers have coaches by their side. 
 
 #### Investment
 
-$299/month (For the price of 6 lunches a month you already do)
+$1,897 (For the price of a months worth of lunches)
 
-* 6 hours to use however you want
-* Resume review
-* Job review
+* Weekly calls to go over short-term and long-term objectives
+* Industry vocabulary 
+* 4 Resume reviews
+* 4 Job review
