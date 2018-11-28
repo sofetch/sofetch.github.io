@@ -3,45 +3,39 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SoFetch.io; Software Experts</title>
-<style type="text/css">
-body {
-	margin:40px auto;
-	max-width:850px;
-	color:#444;
-	padding:0 10px;
-	font:20px/1.6 sans-serif;
-}
-h1,h2,h3 {
-	line-height:1.2
-}
-
-blockquote {
-	background: rgba(0,0,0,0.05);
-	padding: 20px 30px;
-	margin: 0;
-	font-family: serif;
-	font-style: italic;
-	font-size: 24px;
-	color: rgba(0,0,0,0.4);
-	position: relative;
-}
-
-blockquote:before {
-	content: open-quote;
-	display: block;
-	position:absolute;
-	left:20px;
-	top: 20px;
-}
-
-</style>
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <h1>Hi, we're SoFetch. We work with software.</h2>
-  <hr/>
-  {{ content }}
-<hr/>
-  {% include contact.html %}
+	<div class="so-fetch">
+		<div class="left-side">
+			<nav class="left-side__nav">
+				<div class="left-side__logo">
+					{% include logo.html %}
+				</div>
+				<ul>
+					{% for item in site.data.sidebar.nav %}
+							<li><a class="{% if item.url == page.url %}active{% endif %}" href="{{ item.url }}" alt="{{ item.title }}">{{ item.title }}</a>
+							{% if item.subitems[0] %}
+							<ul>
+								{% for subItem in item.subitems %}
+									<li><a class="{% if subItem.url == page.url %}active{% endif %}" href="{{ subItem.url }}" alt="{{ subItem.title }}">{{ subItem.title }}</a></li>
+								{% endfor %}
+							</ul>
+							{% endif %}
+							</li>
+					{% endfor %}
+				</ul>
+			</nav>
+		</div>
+		<div class="right-side">
+			<h1>Hi, we're SoFetch. We work with software.</h2>
+			<hr/>
+			{{ content }}
+			<hr/>
+			{% include contact.html %}
+		</div>
+	</div>
 </body>
 
 <script>
