@@ -1,0 +1,65 @@
+// Colors
+$black:         #000000;
+$white:         #ffffff;
+$gray:          #444444;
+$gray-border:   #ded5d5;
+$maroon:        #7d3030;
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+	color: $gray;
+	font:20px/1.6 'Raleway', sans-serif;
+}
+
+a {
+    color: $maroon;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom-color .2s ease-in-out;
+
+    &:hover {
+        border-bottom-color: $maroon;
+    }
+}
+
+p {
+    margin-bottom: 30px;
+}
+
+h1,
+h2,
+h3 {
+	line-height:1.2
+}
+
+blockquote {
+	background: rgba($black, 0.05);
+	padding: 20px 30px;
+	margin: 0;
+	font-family: serif;
+	font-style: italic;
+	font-size: 24px;
+	color: rgba(0,0,0,0.4);
+	position: relative;
+
+    &:before {
+        content: open-quote;
+        display: block;
+        position:absolute;
+        left:20px;
+        top: 20px;
+    }
+}
+
+.maroon {
+    color: $maroon;
+}
+
+.page-title {
+    padding-bottom: .5em;
+    margin-bottom: .5em;
+
+}

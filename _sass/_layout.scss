@@ -1,0 +1,78 @@
+.so-fetch {
+    display: flex;
+}
+
+.left-side {
+    width: 10em;
+    margin-right: 2em;
+    border-right: 1px solid $gray-border;
+    float: left;
+
+    &__logo {
+        width: 5.5em;
+        margin-bottom: 0.7em;
+        padding-bottom: 1.2em;
+        border-bottom: 1px solid $gray-border;
+        svg {
+            * {
+                fill: $gray;
+            }
+        }
+    }
+
+    &__nav {
+        position: fixed;
+        top: 2em;
+        left: 2em;
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        li {
+            margin-bottom: .5em;
+            a {
+                display: inline-block;
+                padding: 0 0.4em;
+                border-left: 0.3em solid rgba($gray-border, 0.5); 
+                border-bottom: 0;
+                line-height: 1;
+                color: $black;
+                transition: color .2s ease-in-out;
+                &:hover {
+                    color: $maroon;
+                }
+            }
+            &:hover {
+                ul {
+                    max-height: 100px;
+                }
+            }
+            ul {
+                padding-left: .3em;
+                border-left: 0.3em solid rgba($gray-border, 0.5);
+                display: block;
+                max-height: 0px;
+                overflow: hidden;
+                transition: max-height 0.7s ease-in-out;
+                li {
+                    margin-bottom: 0;
+                    a {
+                        font-size: 14px;
+                        border-left: 0;
+                        margin: 0;
+                        border-radius: 0;
+                        padding-left: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.right-side {
+    width: 840px;
+    margin: 2em auto;
+    max-width: 90%;
+}
