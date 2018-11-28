@@ -8,5 +8,7 @@ nav:
       - title: Recruiter Coaching
         url: /services/recruiter_coaching/
 
-- title: Scheducle
-  url: https://goo.gl/forms/KwZUc4J4TDfULuBd2
+- title: Contact Us
+  subitems:
+      - title: Schedule a Call
+        url: https://goo.gl/forms/KwZUc4J4TDfULuBd2
