@@ -85,7 +85,7 @@ MSA & SOW – After our initial chat we create and send out our Master Service A
 
 **ACH** - We prefer that all payments are made through ACH. The transaction fees are lower, they are more secure, and it's easy to setup recurring payments.
 
-**Online Payments** – We track time and send invoices through Harvest. We accept online payments via Stripe through Harvest. As of June 1, 2015 a 2% transaction fee will be added to non ACH payments.
+**Online Payments** – We track time and send invoices through Harvest. We accept online payments via Stripe through Harvest. As of June 1, 2015 a 2% transaction fee was added to non-ACH payments.
 
 ## Web Apps & Software
 
