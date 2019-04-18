@@ -11,38 +11,51 @@ All of software development is done between the ears. If we overload our brains 
 Our 2019 schedule:
 
 January 7
+
 January 21
 
 February 4
+
 February 18
 
 March 4
+
 March 18
 
 April 1
+
 April 15
+
 April 29
 
 May 13
+
 May 27
 
 June 10
+
 June 24
 
 July 8
+
 July 22
 
 August 5
+
 August 19
 
 September 2
+
 September 16
+
 September 30
 
 October 14
+
 October 28
 
 November 11 
+
 November 25 
 
 December 9
