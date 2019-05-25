@@ -34,7 +34,15 @@ All of software development is done between the ears. If we overload our brains 
 Our 2019 schedule:
 
 {% for time in page.times %}
+
   {{ time | date: "%A, %B %d, %Y" }}
+
+  {% if time < site.time %}
+    Red
+  {% else %}
+    Green
+  {% endif %}
+
 {% endfor %}
 
 December OFF / No Projects starting (We love Christmas)
