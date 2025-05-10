@@ -1,5 +1,5 @@
 # SoFetch
 
-Our mission is to simplify your business, amplify your results, and help you gain the flexibility you wanted when you first started.
+Our mission is to amplify your results through one or more of the following: investment, experience, brute force hard work.
 
-Currently improving this page -June 2024
+Currently improving this page - May 2025
