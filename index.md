@@ -1,5 +1,7 @@
 # SoFetch
 
-Our mission is to simplify your business, amplify your results, and help you gain the flexibility you wanted when you first started.
+Well, we sold off everything Dec 2020.
 
-Currently improving this page -June 2024
+Still help'n tech on the investment side now.
+
+You can email us, but we probably won't respond at the moment.
