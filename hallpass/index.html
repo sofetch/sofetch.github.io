@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Hall Pass</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+:root {
+  --bg: #f5f2ed;
+  --text: #1a1a1a;
+  --sub: #999;
+  --border: #e5e0d8;
+  --green: #1a1a1a;
+  --pill: #fff;
+  --accent: #c8f060;
+}
+
+body {
+  background: var(--bg);
+  font-family: 'Manrope', sans-serif;
+  min-height: 100vh;
+  max-width: 390px;
+  margin: 0 auto;
+  color: var(--text);
+}
+
+/* SCREENS */
+.screen { display: none; min-height: 100vh; }
+.screen.active { display: flex; flex-direction: column; }
+
+/* STATUS BAR */
+.sbar {
+  padding: 16px 24px 0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 700;
+  color: #aaa;
+}
+
+/* ===== HOME ===== */
+#home {
+  padding: 0;
+}
+
+#home .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px 32px 48px;
+}
+
+.wordmark {
+  font-family: 'Instrument Serif', serif;
+  font-size: 52px;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.wordmark em {
+  font-style: italic;
+  color: var(--sub);
+}
+
+.tagline {
+  font-size: 14px;
+  color: var(--sub);
+  margin-bottom: 56px;
+  font-weight: 500;
+}
+
+/* Big tap button */
+.blast-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--text);
+  color: var(--accent);
+  border: none;
+  border-radius: 20px;
+  padding: 22px;
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px;
+  cursor: pointer;
+  width: 100%;
+  letter-spacing: 0.01em;
+  transition: opacity 0.15s;
+  margin-bottom: 16px;
+}
+.blast-btn:active { opacity: 0.85; }
+
+.manage-link {
+  text-align: center;
+  font-size: 13px;
+  color: var(--sub);
+  cursor: pointer;
+  font-weight: 600;
+  padding: 8px;
+}
+
+/* ===== CONFIGURE ===== */
+#config {
+  padding: 0;
+}
+
+#config .content {
+  flex: 1;
+  padding: 28px 28px 32px;
+  overflow-y: auto;
+}
+
+.back {
+  font-size: 13px;
+  color: var(--sub);
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.config-heading {
+  font-family: 'Instrument Serif', serif;
+  font-size: 32px;
+  color: var(--text);
+  margin-bottom: 32px;
+  line-height: 1.15;
+}
+
+.field-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--sub);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+
+/* Pill options */
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.pill {
+  background: var(--pill);
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  padding: 9px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+
+.pill.sel {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--accent);
+}
+
+/* Friends */
+.friend-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 28px;
+}
+
+.friend-row {
+  display: flex;
+  align-items: center;
+  padding: 12px 4px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  gap: 12px;
+}
+
+.friend-row:last-child { border-bottom: none; }
+
+.f-emoji {
+  font-size: 22px;
+  width: 36px;
+  text-align: center;
+}
+
+.f-info { flex: 1; }
+.f-name { font-size: 14px; font-weight: 700; color: var(--text); }
+.f-num  { font-size: 12px; color: var(--sub); margin-top: 1px; }
+
+.f-check {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 900;
+  flex-shrink: 0;
+  transition: all 0.12s;
+}
+
+.friend-row.on .f-check {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--accent);
+}
+
+/* Send button */
+.send-btn {
+  display: block;
+  background: var(--text);
+  color: var(--accent);
+  text-decoration: none;
+  border: none;
+  border-radius: 18px;
+  padding: 20px;
+  text-align: center;
+  font-family: 'Instrument Serif', serif;
+  font-size: 20px;
+  cursor: pointer;
+  width: 100%;
+  transition: opacity 0.15s;
+  margin-bottom: 10px;
+}
+
+.send-btn:active { opacity: 0.85; }
+.send-btn.off { opacity: 0.3; pointer-events: none; }
+
+.send-note {
+  text-align: center;
+  font-size: 11px;
+  color: var(--sub);
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+/* ===== SQUAD ===== */
+#squad .content {
+  flex: 1;
+  padding: 28px 28px 40px;
+  overflow-y: auto;
+}
+
+.squad-heading {
+  font-family: 'Instrument Serif', serif;
+  font-size: 32px;
+  color: var(--text);
+  margin-bottom: 28px;
+}
+
+.member-wrap {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+
+.member-wrap:last-of-type { border-bottom: none; }
+
+.delete-bg {
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 80px;
+  background: #ff3b30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  transition: width 0.2s;
+}
+
+.member-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  background: var(--bg);
+  position: relative;
+  transition: transform 0.25s cubic-bezier(0.25,1,0.5,1);
+  cursor: pointer;
+  user-select: none;
+}
+
+.member-row.swiped { transform: translateX(-80px); }
+
+.m-emoji {
+  font-size: 24px;
+  width: 38px;
+  text-align: center;
+}
+
+.m-name { font-size: 14px; font-weight: 700; color: var(--text); }
+.m-num  { font-size: 12px; color: var(--sub); margin-top: 2px; }
+
+/* Add form */
+.add-trigger {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--sub);
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: 'Manrope', sans-serif;
+  width: 100%;
+}
+
+.add-form { display: none; margin-top: 4px; }
+.add-form.open { display: block; }
+
+.add-input {
+  width: 100%;
+  background: var(--pill);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 13px 16px;
+  font-size: 14px;
+  font-family: 'Manrope', sans-serif;
+  color: var(--text);
+  outline: none;
+  margin-bottom: 8px;
+}
+
+.add-input:focus { border-color: #bbb; }
+
+.add-actions { display: flex; gap: 8px; }
+
+.save-btn {
+  flex: 1;
+  background: var(--text);
+  color: var(--accent);
+  border: none;
+  border-radius: 12px;
+  padding: 13px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'Manrope', sans-serif;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: var(--pill);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 13px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Manrope', sans-serif;
+  color: var(--sub);
+  cursor: pointer;
+}
+
+/* BOTTOM NAV */
+.bnav {
+  display: flex;
+  justify-content: space-around;
+  padding: 14px 20px 32px;
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.ni {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  opacity: 0.35;
+  padding: 4px 16px;
+}
+.ni.active { opacity: 1; }
+.ni-icon { font-size: 20px; }
+.ni-label { font-size: 10px; font-weight: 700; color: var(--sub); letter-spacing: 0.05em; }
+.ni.active .ni-label { color: var(--text); }
+
+</style>
+</head>
+<body>
+
+<!-- HOME -->
+<div class="screen active" id="home">
+  <div class="sbar"><span>9:41</span><span>●●● 🔋</span></div>
+  <div class="content">
+    <div class="wordmark">Hall <em>Pass</em></div>
+    <div class="tagline">Tell your squad you're actually free.</div>
+    <button class="blast-btn" onclick="goTo('config')">Drop the Hall Pass 🍺</button>
+    <div class="manage-link" onclick="goTo('squad')">Manage squad</div>
+  </div>
+  <div class="bnav">
+    <div class="ni active"><div class="ni-icon">🏠</div><div class="ni-label">Home</div></div>
+    <div class="ni" onclick="goTo('config')"><div class="ni-icon">🚨</div><div class="ni-label">Blast</div></div>
+    <div class="ni" onclick="goTo('squad')"><div class="ni-icon">👥</div><div class="ni-label">Squad</div></div>
+  </div>
+</div>
+
+<!-- CONFIG / SEND -->
+<div class="screen" id="config">
+  <div class="sbar"><span>9:41</span><span>●●● 🔋</span></div>
+  <div class="content">
+    <div class="back" onclick="goTo('home')">← Back</div>
+    <div class="config-heading">When are<br>you free?</div>
+
+    <div class="field-label">Time</div>
+    <div class="pill-row" id="timePills">
+      <div class="pill" data-val="after 6pm" onclick="pickPill(this,'time')">After 6pm</div>
+      <div class="pill" data-val="after 7pm" onclick="pickPill(this,'time')">After 7pm</div>
+      <div class="pill" data-val="after 8pm" onclick="pickPill(this,'time')">After 8pm</div>
+      <div class="pill" data-val="all day"   onclick="pickPill(this,'time')">All day 🤠</div>
+      <div class="pill" data-val="just for a bit" onclick="pickPill(this,'time')">Just a bit ⚡</div>
+      <div class="pill" data-val="all night" onclick="pickPill(this,'time')">All night 🌙</div>
+    </div>
+
+    <div class="field-label">Vibe</div>
+    <div class="pill-row" id="vibePills">
+      <div class="pill" data-val="grab drinks 🍺" onclick="pickPill(this,'vibe')">Drinks 🍺</div>
+      <div class="pill" data-val="hoop 🏀"        onclick="pickPill(this,'vibe')">Hoop 🏀</div>
+      <div class="pill" data-val="game night 🎮"  onclick="pickPill(this,'vibe')">Games 🎮</div>
+      <div class="pill" data-val="get food 🍕"    onclick="pickPill(this,'vibe')">Food 🍕</div>
+      <div class="pill" data-val="whatever 🤷"    onclick="pickPill(this,'vibe')">Whatever 🤷</div>
+    </div>
+
+    <div class="field-label">Who</div>
+    <div class="friend-list" id="friendChecks"></div>
+
+    <br>
+    <a class="send-btn off" id="sendBtn" href="#">Send via Messages →</a>
+    <div class="send-note">Opens your native Messages app.<br>Sends from your own number.</div>
+  </div>
+  <div class="bnav">
+    <div class="ni" onclick="goTo('home')"><div class="ni-icon">🏠</div><div class="ni-label">Home</div></div>
+    <div class="ni active"><div class="ni-icon">🚨</div><div class="ni-label">Blast</div></div>
+    <div class="ni" onclick="goTo('squad')"><div class="ni-icon">👥</div><div class="ni-label">Squad</div></div>
+  </div>
+</div>
+
+<!-- SQUAD -->
+<div class="screen" id="squad">
+  <div class="sbar"><span>9:41</span><span>●●● 🔋</span></div>
+  <div class="content">
+    <div class="back" onclick="goTo('home')">← Back</div>
+    <div class="squad-heading">Your Squad</div>
+    <div id="memberList"></div>
+
+    <button class="add-trigger" onclick="toggleAdd()">+ Add someone</button>
+
+    <div class="add-form" id="addForm">
+      <input class="add-input" type="text" id="newName" placeholder="Name" />
+      <input class="add-input" type="tel"  id="newPhone" placeholder="Phone number" />
+      <div class="add-actions">
+        <button class="save-btn"   onclick="saveContact()">Add</button>
+        <button class="cancel-btn" onclick="toggleAdd()">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <div class="bnav">
+    <div class="ni" onclick="goTo('home')"><div class="ni-icon">🏠</div><div class="ni-label">Home</div></div>
+    <div class="ni" onclick="goTo('config')"><div class="ni-icon">🚨</div><div class="ni-label">Blast</div></div>
+    <div class="ni active"><div class="ni-icon">👥</div><div class="ni-label">Squad</div></div>
+  </div>
+</div>
+
+<script>
+let squad = [
+  { name: 'Big Mike', phone: '5552345678', emoji: '🤙' },
+  { name: 'Dre',      phone: '5558765432', emoji: '🏀' },
+  { name: 'Carlos',   phone: '5553210987', emoji: '🎮' },
+  { name: 'James',    phone: '5555551234', emoji: '🏈' },
+  { name: 'Pete',     phone: '5559998877', emoji: '🎸' },
+];
+
+let checked = new Set(squad.map((_, i) => i));
+let selTime = null;
+let selVibe = null;
+
+const emojiPool = ['😎','🤙','🏀','🎮','🏈','🎸','🔥','💪','🎯'];
+
+function goTo(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (id === 'config') renderChecks();
+  if (id === 'squad')  renderMembers();
+  window.scrollTo(0, 0);
+}
+
+function pickPill(el, group) {
+  const parent = group === 'time' ? 'timePills' : 'vibePills';
+  document.querySelectorAll(`#${parent} .pill`).forEach(p => p.classList.remove('sel'));
+  el.classList.add('sel');
+  if (group === 'time') selTime = el.dataset.val;
+  else selVibe = el.dataset.val;
+  updateSendBtn();
+}
+
+function renderChecks() {
+  document.getElementById('friendChecks').innerHTML = squad.map((f, i) => `
+    <div class="friend-row ${checked.has(i) ? 'on' : ''}" onclick="toggleFriend(${i}, this)">
+      <div class="f-emoji">${f.emoji}</div>
+      <div class="f-info">
+        <div class="f-name">${f.name}</div>
+        <div class="f-num">${fmt(f.phone)}</div>
+      </div>
+      <div class="f-check">${checked.has(i) ? '✓' : ''}</div>
+    </div>
+  `).join('');
+  updateSendBtn();
+}
+
+function toggleFriend(i, el) {
+  checked.has(i) ? checked.delete(i) : checked.add(i);
+  el.classList.toggle('on');
+  el.querySelector('.f-check').textContent = checked.has(i) ? '✓' : '';
+  updateSendBtn();
+}
+
+function updateSendBtn() {
+  const btn = document.getElementById('sendBtn');
+  const sel = [...checked].map(i => squad[i]);
+  if (!selTime || !selVibe || sel.length === 0) {
+    btn.classList.add('off');
+    btn.removeAttribute('href');
+    return;
+  }
+  btn.classList.remove('off');
+  const body = `🚨 HALL PASS 🚨\n\nYo it's me — I'm FREE ${selTime.toUpperCase()}. The warden gave me a night off 😂\n\nTryna ${selVibe}. Don't leave me hanging. What's good?`;
+  const phones = sel.map(f => f.phone).join(',');
+  btn.href = `sms:${phones}?&body=${encodeURIComponent(body)}`;
+}
+
+function renderMembers() {
+  document.getElementById('memberList').innerHTML = squad.map((f, i) => `
+    <div class="member-wrap" id="wrap-${i}">
+      <div class="delete-bg" onclick="removeMember(${i})">🗑️</div>
+      <div class="member-row" id="mrow-${i}" data-index="${i}">
+        <div class="m-emoji">${f.emoji}</div>
+        <div style="flex:1">
+          <div class="m-name">${f.name}</div>
+          <div class="m-num">${fmt(f.phone)}</div>
+        </div>
+        <div onclick="event.stopPropagation(); removeMember(${i})" style="font-size:20px;color:#ccc;padding:4px 2px;cursor:pointer;line-height:1;flex-shrink:0;" title="Remove">×</div>
+      </div>
+    </div>
+  `).join('');
+
+  // Attach swipe listeners
+  squad.forEach((_, i) => {
+    const row = document.getElementById(`mrow-${i}`);
+    if (!row) return;
+    let startX = 0, startY = 0, dragging = false;
+
+    row.addEventListener('touchstart', e => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      dragging = true;
+    }, { passive: true });
+
+    row.addEventListener('touchmove', e => {
+      if (!dragging) return;
+      const dx = e.touches[0].clientX - startX;
+      const dy = e.touches[0].clientY - startY;
+      if (Math.abs(dy) > Math.abs(dx)) { dragging = false; return; }
+      e.preventDefault();
+    }, { passive: false });
+
+    row.addEventListener('touchend', e => {
+      if (!dragging) return;
+      const dx = e.changedTouches[0].clientX - startX;
+      if (dx < -50) {
+        // close any other open rows
+        document.querySelectorAll('.member-row.swiped').forEach(r => {
+          if (r.id !== `mrow-${i}`) r.classList.remove('swiped');
+        });
+        row.classList.add('swiped');
+      } else if (dx > 20) {
+        row.classList.remove('swiped');
+      }
+      dragging = false;
+    });
+
+    // Tap anywhere else to close
+    row.addEventListener('click', () => {
+      if (row.classList.contains('swiped')) {
+        row.classList.remove('swiped');
+      }
+    });
+  });
+}
+
+function removeMember(i) {
+  if (!confirm(`Remove ${squad[i].name} from your squad?`)) return;
+  squad.splice(i, 1);
+  // Rebuild checked set with shifted indices
+  checked = new Set([...checked].filter(c => c !== i).map(c => c > i ? c - 1 : c));
+  renderMembers();
+}
+
+function toggleAdd() {
+  const f = document.getElementById('addForm');
+  f.classList.toggle('open');
+  if (f.classList.contains('open')) document.getElementById('newName').focus();
+}
+
+function saveContact() {
+  const name  = document.getElementById('newName').value.trim();
+  const phone = document.getElementById('newPhone').value.replace(/\D/g, '');
+  if (!name || !phone) return;
+  squad.push({ name, phone, emoji: emojiPool[Math.floor(Math.random() * emojiPool.length)] });
+  checked.add(squad.length - 1);
+  document.getElementById('newName').value = '';
+  document.getElementById('newPhone').value = '';
+  document.getElementById('addForm').classList.remove('open');
+  renderMembers();
+}
+
+function fmt(d) {
+  d = d.replace(/\D/g, '');
+  if (d.length === 10) return `(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
+  return d;
+}
+</script>
+</body>
+</html>
