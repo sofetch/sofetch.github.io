@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Time Left</title>
+<style>
+  :root{
+    --ink:#10221f;
+    --paper:#eef2ee;
+    --line:#c7d0c8;
+    --lived:#3a6f61;
+    --left:#e8b04b;
+    --muted:#5c6b62;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:var(--paper);
+    color:var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:32px 16px;
+  }
+  .card{
+    width:100%;
+    max-width:440px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:32px 28px 28px;
+  }
+  h1{
+    font-size:1.35rem;
+    margin:0 0 4px;
+    letter-spacing:-0.01em;
+  }
+  p.sub{
+    margin:0 0 14px;
+    color:var(--muted);
+    font-size:0.92rem;
+    line-height:1.4;
+  }
+  p.blurb{
+    margin:0 0 24px;
+    padding:12px 14px;
+    background:var(--paper);
+    border-left:3px solid var(--lived);
+    border-radius:4px;
+    color:var(--ink);
+    font-size:0.88rem;
+    font-style:italic;
+    line-height:1.5;
+  }
+  .row{
+    display:flex;
+    gap:12px;
+    margin-bottom:14px;
+  }
+  label{
+    display:block;
+    font-size:0.78rem;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--muted);
+    margin-bottom:6px;
+  }
+  select, input{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    font-size:0.95rem;
+    background:var(--paper);
+    color:var(--ink);
+  }
+  select:focus, input:focus{
+    outline:2px solid var(--lived);
+    outline-offset:1px;
+  }
+  .field{flex:1;}
+  #chartWrap{
+    margin-top:20px;
+    text-align:center;
+  }
+  #result{
+    margin-top:14px;
+    font-size:0.92rem;
+    color:var(--muted);
+    text-align:center;
+    line-height:1.5;
+    min-height:1.4em;
+  }
+  #result strong{color:var(--ink);}
+  .legend{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    margin-top:12px;
+    font-size:0.8rem;
+    color:var(--muted);
+  }
+  .legend span{display:flex; align-items:center; gap:6px;}
+  .swatch{width:10px;height:10px;border-radius:2px;display:inline-block;}
+  .note{
+    margin-top:18px;
+    font-size:0.72rem;
+    color:var(--muted);
+    text-align:center;
+    line-height:1.4;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>How much time do you have left?</h1>
+  <p class="sub">Pick your gender and age. We'll compare years lived to the years a typical lifespan leaves ahead.</p>
+  <p class="blurb">"It's not the years in your life that count. It's the life in your years." — Eleanor Roosevelt</p>
+
+  <div class="row">
+    <div class="field">
+      <label for="gender">Gender</label>
+      <select id="gender">
+        <option value="">Select…</option>
+        <option value="female">Female</option>
+        <option value="male">Male</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="age">Age</label>
+      <input type="number" id="age" min="0" max="110" placeholder="e.g. 30">
+    </div>
+  </div>
+
+  <div id="chartWrap">
+    <svg id="pie" width="220" height="220" viewBox="0 0 220 220"></svg>
+    <div class="legend">
+      <span><i class="swatch" style="background:var(--lived)"></i>Years lived</span>
+      <span><i class="swatch" style="background:var(--left)"></i>Years left (avg)</span>
+    </div>
+  </div>
+
+  <div id="result">Fill in both fields to see your chart.</div>
+
+  <p class="note">Based on U.S. average life expectancy at birth (CDC): ~80.2 years (female), ~74.8 years (male), ~77.5 years (other/blended). Averages only — not a prediction for any individual.</p>
+</div>
+
+<script>
+  const LIFE_EXPECTANCY = { female: 80.2, male: 74.8, other: 77.5 };
+
+  const genderEl = document.getElementById('gender');
+  const ageEl = document.getElementById('age');
+  const resultEl = document.getElementById('result');
+  const svg = document.getElementById('pie');
+
+  function drawPie(livedFrac, cx, cy, r){
+    svg.innerHTML = '';
+    livedFrac = Math.max(0, Math.min(1, livedFrac));
+
+    if (livedFrac <= 0 || livedFrac >= 1) {
+      const circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      circle.setAttribute('cx', cx);
+      circle.setAttribute('cy', cy);
+      circle.setAttribute('r', r);
+      circle.setAttribute('fill', livedFrac >= 1 ? 'var(--lived)' : 'var(--left)');
+      svg.appendChild(circle);
+      return;
+    }
+
+    const angle = livedFrac * 2 * Math.PI;
+    const x1 = cx + r * Math.sin(0);
+    const y1 = cy - r * Math.cos(0);
+    const x2 = cx + r * Math.sin(angle);
+    const y2 = cy - r * Math.cos(angle);
+    const largeArc = livedFrac > 0.5 ? 1 : 0;
+
+    const livedPath = document.createElementNS('http://www.w3.org/2000/svg','path');
+    livedPath.setAttribute('d', `M${cx},${cy} L${x1},${y1} A${r},${r} 0 ${largeArc} 1 ${x2},${y2} Z`);
+    livedPath.setAttribute('fill', 'var(--lived)');
+    svg.appendChild(livedPath);
+
+    const leftPath = document.createElementNS('http://www.w3.org/2000/svg','path');
+    leftPath.setAttribute('d', `M${cx},${cy} L${x2},${y2} A${r},${r} 0 ${1-largeArc} 1 ${x1},${y1} Z`);
+    leftPath.setAttribute('fill', 'var(--left)');
+    svg.appendChild(leftPath);
+  }
+
+  function update(){
+    const gender = genderEl.value;
+    const age = parseFloat(ageEl.value);
+
+    if (!gender || isNaN(age) || age < 0){
+      drawPie(0, 110, 110, 95);
+      svg.innerHTML += `<circle cx="110" cy="110" r="95" fill="none" stroke="var(--line)" stroke-width="1"/>`;
+      resultEl.textContent = 'Fill in both fields to see your chart.';
+      return;
+    }
+
+    const expectancy = LIFE_EXPECTANCY[gender];
+    const livedFrac = age / expectancy;
+    const yearsLeft = expectancy - age;
+
+    drawPie(livedFrac, 110, 110, 95);
+
+    if (yearsLeft > 0){
+      resultEl.innerHTML = `At <strong>${age}</strong>, you've lived <strong>${Math.round(livedFrac*100)}%</strong> of the average ${expectancy}-year lifespan for that group — about <strong>${yearsLeft.toFixed(1)} years</strong> left on average.`;
+    } else {
+      resultEl.innerHTML = `You've already passed the average lifespan of <strong>${expectancy} years</strong> for that group — congratulations on beating the average.`;
+    }
+  }
+
+  genderEl.addEventListener('change', update);
+  ageEl.addEventListener('input', update);
+  update();
+</script>
+</body>
+</html>
